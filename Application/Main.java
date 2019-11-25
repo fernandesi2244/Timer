@@ -79,14 +79,6 @@ public class Main extends Application {
 		// Construct new layout
 		grid.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
 
-		/*
-		 * // Construct MediaPlayer to play alert sound when timer has finished String
-		 * alertMusicFile = new File("appMedia/airHorn.mp3").getAbsolutePath(); Media
-		 * sound = new Media(new File(alertMusicFile).toURI().toString()); MediaPlayer
-		 * player = new MediaPlayer(sound);
-		 * 
-		 */
-
 		// Initialize currentSeconds to appropriate value
 		currentSeconds = startMinutes * 60;
 
