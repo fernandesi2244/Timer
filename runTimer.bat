@@ -1,1 +1,0 @@
-java -jar Timer.jar
