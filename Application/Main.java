@@ -1,6 +1,8 @@
 package application;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -13,6 +15,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -194,24 +198,35 @@ public class Main extends Application {
 
 			} // Button event handler
 		});
+		
+		// Construct stopButton and associated actions
+		Button backButton = new Button();
+		backButton.setText("Back");
+		backButton.setOnAction(new EventHandler<ActionEvent>() {
 
-		// Box for 3 buttons above
+			@Override
+			public void handle(ActionEvent arg0) {
+				// Go back to the screen where you can change the # of minutes.
+				stop = true;
+				chooseMinutes(primaryStage);
+			} // Button event handler
+		});
+
+		// Box for 4 buttons above
 		HBox btnBox = new HBox(10);
 		btnBox.setAlignment(Pos.BOTTOM_CENTER);
 
 		// Add each button
-		btnBox.getChildren().add(startButton);
-		btnBox.getChildren().add(stopButton);
-		btnBox.getChildren().add(resetButton);
-
+		btnBox.getChildren().addAll(startButton, stopButton, resetButton, backButton);
+		
 		// Add the minute and second captions to the layout
 		grid.add(minuteHeader, 0, 0);
-		grid.add(secondHeader, 6, 0);
+		grid.add(secondHeader, 5, 0);
 
 		// Add the minute, colon, and second labels/text to the layout
 		grid.add(minutesLabel, 0, 1);
 		grid.add(colon, 1, 1);
-		grid.add(secondsLabel, 6, 1);
+		grid.add(secondsLabel, 5, 1);
 
 		// Add the button box to the layout
 		grid.add(btnBox, 0, 2, 6, 1);
@@ -272,6 +287,19 @@ public class Main extends Application {
 		hbNextBtn.setAlignment(Pos.BOTTOM_RIGHT);
 		hbNextBtn.getChildren().add(submitMin);
 		grid.add(hbNextBtn, 1, 2);
+		
+		//Add display image if possible
+		try {
+			FileInputStream inputstream = new FileInputStream(new File("appMedia/displayImage.jpg").getAbsolutePath());
+			Image img = new Image(inputstream);
+			ImageView imageView = new ImageView(img);
+			imageView.setFitHeight(100); 
+			imageView.setFitWidth(100);
+			imageView.setPreserveRatio(true);  
+			grid.add(imageView, 0, 2);
+		} catch (FileNotFoundException e) {
+			//Don't load image if it cannot be found.
+		}
 
 		// Set background color of layout to orange
 		grid.setStyle("-fx-background-color: orange");
@@ -287,6 +315,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		// Initialize the window and go to welcome screen
 		primaryStage.setTitle("Timer");
+		primaryStage.setAlwaysOnTop(true);
 		chooseMinutes(primaryStage);
 
 	}
