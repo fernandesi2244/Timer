@@ -138,7 +138,7 @@ public class Main extends Application {
 						// If the timer has reached 0, play the alert sound, reset the sound, and stop
 						// the timer
 						if (currentSeconds <= 0) {
-							if (new File("appMedia/airHorn.mp3").exists()) {
+							if (new File("appMedia/timerSound.mp3").exists()) {
 								// Construct MediaPlayer to play alert sound when timer has finished
 								String alertMusicFile = new File("appMedia/timerSound.mp3").getAbsolutePath();
 								Media sound = new Media(new File(alertMusicFile).toURI().toString());
